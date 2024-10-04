@@ -1,0 +1,44 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación de Tráfico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Simulación de Tráfico</h1>
+        <form id="simulation-form">
+            <label for="num_intersections">Número de intersecciones:</label>
+            <input type="number" id="num_intersections" name="num_intersections" min="1" max="20" value="5" required>
+
+            <label for="timeout">Tiempo límite (segundos):</label>
+            <input type="number" id="timeout" name="timeout" min="1" max="60" value="15" required>
+
+            <label for="strategy">Estrategia de reinicio:</label>
+            <select id="strategy" name="strategy">
+                <option value="levy">Lévy-Smirnov</option>
+                <option value="luby">LubyTS</option>
+            </select>
+
+            <label for="levy_scale">Escala Lévy (solo para Lévy-Smirnov):</label>
+            <input type="number" id="levy_scale" name="levy_scale" min="0.1" max="10" step="0.1" value="1.0">
+
+            <label for="max_wait_time">Tiempo máximo de espera (segundos):</label>
+            <input type="number" id="max_wait_time" name="max_wait_time" min="10" max="120" value="60" required>
+
+            <button type="submit">Ejecutar Simulación</button>
+        </form>
+
+        <div id="results" style="display: none;">
+            <h2>Resultados de la Simulación</h2>
+            <canvas id="waitTimesChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
